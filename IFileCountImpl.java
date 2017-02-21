@@ -9,6 +9,11 @@ import java.io.File;
 public class IFileCountImpl implements IFileCount {
     private File currentDirectory;
     private int fileCount = 0;
+    private int fileContInDirectory = 0;
+
+
+
+
 
     /**
      * This method must find new folder inside main folder. If result is true method must call himself.
@@ -28,10 +33,11 @@ public class IFileCountImpl implements IFileCount {
                     searchFile(file.getPath());
             }
             for (File file : files) {
-                int n = 0;
                 if (file.isFile()) {
-                    ++n;
-                    System.out.println("File " + n + "   find " + file.getAbsolutePath());
+                    fileContInDirectory++;
+
+                    System.out.println("File " + fileContInDirectory + "   find " + file.getAbsolutePath());
+
                 }
             }
         }
@@ -46,12 +52,14 @@ public class IFileCountImpl implements IFileCount {
             if (files[j].isDirectory())
                 try {
                     searchFile(files[j].getPath());
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
         }
-        return fileCount;
+        return fileCount + fileContInDirectory;
+
 
     }
 }
